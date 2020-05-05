@@ -1,0 +1,35 @@
+.Card {
+  max-width: 350px;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 50px;
+}
+
+.Header {
+  justify-content: center;
+  padding: 0;
+  background-color: #fff;
+}
+
+.Image {
+  width: 50%;
+  height: 50%;
+  margin-bottom: 20px;
+}
+
+.Content {
+  margin-top: 20px;
+}
+
+.Link {
+  color: var(--ifm-color-primary);
+}
+
+.Link:hover {
+  color: var(--ifm-color-primary-dark);
+}
+
+.Link:visited {
+  color: var(--ifm-color-primary-darker)
+}

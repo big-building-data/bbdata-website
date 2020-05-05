@@ -1,0 +1,50 @@
+.ContA {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.RowBanner {
+  padding-right: 0 !important;
+  margin: 0 !important;
+  width: 100%;
+}
+
+.Banner {
+  justify-content: center;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100%;
+}
+
+.Content {
+  margin: auto !important;
+  justify-content: center;
+}
+
+.Research {
+  margin: auto;
+  padding: 20px;
+  justify-content: center;
+  text-align: justify;
+}
+
+.Col {
+  justify-content: center;
+  justify-self: center;
+  margin: auto;
+}
+
+.Title {
+  justify-content: center;
+  text-align: center;
+}
+
+.Partners {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.Card {
+  float: none;
+  margin: auto;
+}

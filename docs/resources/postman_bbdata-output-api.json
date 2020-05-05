@@ -1,0 +1,4039 @@
+{
+	"variables": [],
+	"info": {
+		"name": "BBData Output API",
+		"_postman_id": "494a0de5-cf3a-7599-a2aa-e1157b255145",
+		"description": "![bbdata](http://daplab.ch/wp-content/uploads/2017/02/bbdata-logo.png)\n\nThis document describes the different endpoints available through the bbdata output api endpoint, a json REST api to let you manage, view, and consult objects and values.\n* [bbdata admin interface](https://bbdata-admin.daplab.ch): a web interface to manage objects, objectgroups, users and permissions;\n* [input api](https://bbdata.daplab.ch/input): api used to submit new values;\n* [source code](https://gitlab.forge.hefr.ch/bbdata): bbdata organisation on gitlab.forge (protected)\n__v0.4__:\n\n* add endpoints `/values/quarters` and `/values/hours` to query aggregations\n* support CSV media-type for all endpoints under `/values`. Now, you can also get values in a CSV format by specifying `Content-Type: text/plain` in the header !\n* support for optional header and prettyprint: for all endpoints under `/values`, use the query param `headers=true` to get headers (CSV) and `prettyprint=true` to have your json response in a readable and formatted way (more overhead, though).\n\n* __WARNING__: values (endpoint `/values`) are not automatically cast to int or float anymore, but __always returned as strings__\n\n__v0.3.2__: \n\n* move `/objects/{id}/values` endpoints to `/objects/values`\n* create a `/values` subresource and add a `/values/latest` endpoint \n* add more query parameters to `/objects` endpoint: search, pagination\n\n__v0.3__: \n\n* add `/objects/{id}/enabled` and `/objects/{id}/disabled` endpoints \n* add `/comments` subresource\n* more coherent status codes\n\n__v0.2__: \n\n* add `/userGroups/{id}/users/new` endpoint to allow user creation\n* add POST `/units` to allow units creation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "comments",
+			"description": "get all registered comments.",
+			"item": [
+				{
+					"name": "comments",
+					"request": {
+						"url": "{{server}}/api/comments",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get all comments from objects you have read access to."
+					},
+					"response": [
+						{
+							"id": "d45c29c4-2542-41f2-ac70-1f5120de2d98",
+							"name": "response",
+							"status": "return the types.comment",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "6cb4f66c-152c-449b-8681-84818070378a",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "comments: filtered",
+					"request": {
+						"url": "{{server}}/api/comments?objectIds=1,4889",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get all comments for some objects, for example objects 1 and 4889. Don't forget to list ids of objects you have access to (see `/object` for a complete list)."
+					},
+					"response": [
+						{
+							"id": "4d6ad078-829e-45bf-8eb2-ba0396faed3d",
+							"name": "response",
+							"status": "return the types.comment",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "c6f18d5d-d08a-4572-a35d-b7a7bfbfb617",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "comment: add new",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200){",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    postman.setGlobalVariable(\"new_comment_id\", jsonData.id);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{server}}/api/comments",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"comment\": \"test\",\n\t\"from\": \"2017-03-27T10:00:00.000\",\n\t\"objectId\": 3076,\n\t\"to\": \"2017-03-28T10:00:00.000\"\n}"
+						},
+						"description": "create a new comment. The id of the comment will be stored in the `new_comment_id` global variable, which will be used in other requests."
+					},
+					"response": [
+						{
+							"id": "452a1470-8bb5-4ff0-a79b-54806ddee38e",
+							"name": "response",
+							"status": "The request succeeded.",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "350ba53b-a9a6-48c8-8418-8b780778dacc",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "comment: details",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/comments/:id",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"comments",
+								":id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_comment_id}}",
+									"id": "id"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get details about a comment. By default, it uses the `new_comment_id` global variable which is set by the _comment: add new_ request."
+					},
+					"response": [
+						{
+							"id": "50183d3d-84a9-481c-9f40-4ba165cf1a13",
+							"name": "response",
+							"status": "return the types.comment",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "440735ad-2cc6-4954-9275-4976aa8ebb6c",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "comment: edit",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/comments/:id",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"comments",
+								":id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_comment_id}}",
+									"id": "id"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n    \"comment\": \"test renamed\",\n    \"from\": \"2017-03-27T10:00:00.000\",\n    \"id\": {{new_comment_id}},\n    \"objectId\": 3076,\n    \"to\": \"2017-03-28T10:00:00.000\"\n  }"
+						},
+						"description": "Edit a comment. By default, it uses the `new_comment_id` global variable which is set by the _comment: add new_ request."
+					},
+					"response": [
+						{
+							"id": "15989f5b-fa68-4eed-b3e0-62b817a768dd",
+							"name": "response",
+							"status": "The request succeeded.",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "d920d6e3-a2eb-42ae-9890-d3ce22625674",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "comment: delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200) postman.clearGlobalVariable(\"new_comment_id\");",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/comments/:id",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"comments",
+								":id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_comment_id}}",
+									"id": "id"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Delete a comment. By default, it uses the `new_comment_id` global variable which is set by the _comment: add new_ request and then unset the variable upon success."
+					},
+					"response": [
+						{
+							"id": "1a0ae24d-de59-454a-9ff3-4fea2fcd4131",
+							"name": "response",
+							"status": "The request succeeded.",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "3cd74985-d008-4423-bc72-0e05fdadf8ba",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "info",
+			"description": "All about info.",
+			"item": [
+				{
+					"name": "Info",
+					"request": {
+						"url": "{{server}}/api/info",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get server information, such as the current time and the version/built date of the API."
+					},
+					"response": [
+						{
+							"id": "1a200325-8c2e-4314-bdd9-f3941bdf2300",
+							"name": "response",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": "{  \"server_time\": \"2017-05-01T12:52:46.711\",  \"build_date\": \"2017-05-01T12:34\",  \"version\": \"0.4\"}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "login",
+			"description": "Login to the API. This will create a new temporary apikey valid for two hours and store its id in the global variable `bbtoken-1`.",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"bbtoken-1\", jsonData.secret);",
+									"console.log(jsonData.secret);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{server}}/api/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"{{username}}\",\n\t\"password\":\"{{password}}\"\n\t\n}"
+						},
+						"description": "Use your username and password to create a read/write apikey valid for 2 hours."
+					},
+					"response": [
+						{
+							"id": "c3f01062-4146-48a3-84c0-7aa102c5107a",
+							"name": "response",
+							"status": "return the types.apikey",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "5c92a8f6-ee9b-4c9d-87e7-05f3602113f3",
+							"name": "response",
+							"status": "The request has invalid or missing parameter(s).",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "9105619d-9514-46ab-87a8-ee8968f88222",
+							"name": "response",
+							"status": "the username/password is invalid.",
+							"code": 401,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.clearGlobalVariable(\"bbtoken-1\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{server}}/api/logout",
+						"method": "POST",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken-1}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Logout will delete the token used for authentication (i.e. the bbtoken header field)."
+					},
+					"response": [
+						{
+							"id": "a803376f-d506-4f02-9a59-32492b7014c6",
+							"name": "response",
+							"status": "The request succeeded.",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "me",
+			"description": "Get your profile information.",
+			"item": [
+				{
+					"name": "me",
+					"request": {
+						"url": "{{server}}/api/me",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "get information about your profile."
+					},
+					"response": [
+						{
+							"id": "9c2e87f4-568f-43a7-8534-197a8385d1bc",
+							"name": "response",
+							"status": "return the types.user",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "myGroups: list",
+					"request": {
+						"url": "{{server}}/api/me/groups",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "return all usergroups you belong to."
+					},
+					"response": [
+						{
+							"id": "993743a2-3571-4553-bcc0-6ed8454b72a0",
+							"name": "response",
+							"status": "return the types.UserGroups",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "myGroups: list admin",
+					"request": {
+						"url": "{{server}}/api/me/groups?admin=true",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "return all usergroups in which you have admin rights."
+					},
+					"response": [
+						{
+							"id": "d20ea071-3d8d-4dc5-aa24-9e9dba1c7d79",
+							"name": "response",
+							"status": "return the types.UserGroups",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "myApikeys: list",
+					"request": {
+						"url": "{{server}}/api/me/apikeys",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "List all your apikeys."
+					},
+					"response": [
+						{
+							"id": "31115c73-9464-47be-83d9-cbcfb516c1dd",
+							"name": "response",
+							"status": "return the types.Apikeies",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "myApikey : create write + 1h",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"bbtoken-2\", jsonData.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{server}}/api/me/apikeys?writable=true&expire=1h",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "create a new apikey with write access valid 1 hour. The id will be stored into the `new_apikey_id` global variable."
+					},
+					"response": [
+						{
+							"id": "50bc9322-acfa-4181-99c4-62f171f0eb91",
+							"name": "response",
+							"status": "return the types.apikey",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "79f446b1-3b28-454c-a93d-6bb5e8b6b160",
+							"name": "response",
+							"status": "The request has invalid or missing parameter(s).",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "myApikey : create read + no expiration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200){",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    postman.setGlobalVariable(\"new_apikey_id\", jsonData.id);",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{server}}/api/me/apikeys?writable=true",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "create a new apikey read-only and with no expiration date."
+					},
+					"response": [
+						{
+							"id": "70387d0b-3812-4c79-a6a3-4c318bd12613",
+							"name": "response",
+							"status": "return the types.apikey",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "d99d49ed-7996-4f4c-b834-c4c05f673baf",
+							"name": "response",
+							"status": "The request has invalid or missing parameter(s).",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "myApikey: delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200){",
+									"    postman.clearGlobalVariable(\"new_apikey_id\");",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{server}}/api/me/apikeys?apikeyId={{new_apikey_id}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "800980b6-8073-4d2d-b053-87ecf2822f23",
+							"name": "response",
+							"status": "The request succeeded.",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "objectGroups",
+			"description": "All about object groups.",
+			"item": [
+				{
+					"name": "objectGroups: names only",
+					"request": {
+						"url": "{{server}}/api/objectGroups?withObjects=false&writable=false",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "get all objectGroups, without their objects."
+					},
+					"response": [
+						{
+							"id": "8a1566bd-dfef-4681-8c2c-ba11130d5187",
+							"name": "response",
+							"status": "return the types.ObjectGroups",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "objectGroups: writable only + with objects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if(jsonData.length > 0){",
+									"    postman.setGlobalVariable(\"ogroup_id\", jsonData[0].id);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{server}}/api/objectGroups?withObjects=true&writable=true",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "get all objectGroups where you have administration rights, listing their objects as well."
+					},
+					"response": [
+						{
+							"id": "0b158ab9-2870-4f4e-8002-9a9dddb8d71f",
+							"name": "response",
+							"status": "return the types.ObjectGroups",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "objectGroup: details",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objectGroups/:groupId",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objectGroups",
+								":groupId"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{ogroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get details about an object group."
+					},
+					"response": [
+						{
+							"id": "8de30ab4-036c-4950-889c-15944ebb71f7",
+							"name": "response",
+							"status": "return the types.Objects",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "c8397084-8f9e-47a0-9d83-710cd7535318",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "objectGroup: create new",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200){",
+									"    var jsonData = JSON.parse(responseBody);  ",
+									"    postman.setGlobalVariable(\"new_ogroup_id\", jsonData.id);",
+									"}",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{server}}/api/objectGroups",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"name\": \"postman test {{$randomInt}}\",  \n\t\"description\": \"my optional description\",  \n\t\"owner\": {{bbuser}}\n\t\n}"
+						},
+						"description": "Create a new object group, storing its id in the `new_ogroup_id` global variable."
+					},
+					"response": [
+						{
+							"id": "4ed27049-8625-43aa-969f-0b2c8c84037f",
+							"name": "response",
+							"status": "return the types.objectgroup",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "012c8d6d-ff09-47bd-8e9f-d8a3ce906364",
+							"name": "response",
+							"status": "The request has invalid or missing parameter(s).",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "objectGroup: edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200){",
+									"    var jsonData = JSON.parse(responseBody);  ",
+									"    postman.setGlobalVariable(\"new_ogroup_id\", jsonData.id);",
+									"}",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objectGroups/:groupId",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objectGroups",
+								":groupId"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_ogroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"name\": \"postman test {{$randomInt}}\",  \n\t\"description\": \"new description\" \n}"
+						},
+						"description": "Edit an object group, using the `new_ogroup_id` global variable by default."
+					},
+					"response": [
+						{
+							"id": "bf4b7672-5816-443c-87fc-50ca771ceb06",
+							"name": "response",
+							"status": "return the types.objectgroup",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "fbd8766d-801f-4a5d-b70b-6e75ab965320",
+							"name": "response",
+							"status": "The request has invalid or missing parameter(s).",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "objectGroup: add object",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objectGroups/:groupId/objects?objectId=1",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objectGroups",
+								":groupId",
+								"objects"
+							],
+							"query": [
+								{
+									"key": "objectId",
+									"value": "1"
+								}
+							],
+							"variable": [
+								{
+									"value": "{{new_ogroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Add an object to the object group defined by the `new_ogroup_id` global variable. Don't forget to change the id to an object you have admin rights to."
+					},
+					"response": [
+						{
+							"id": "c640d143-edaa-4bff-b9af-528f8765fe34",
+							"name": "response",
+							"status": "return the types.Objects",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "9ed8b310-4a5d-4fe5-bc76-bebc9aaf129f",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "objectGroup: get objects",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objectGroups/:groupId/objects",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objectGroups",
+								":groupId",
+								"objects"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_ogroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get all objects belonging to the object group whose id is storing in the `new_ogroup_id` global variable."
+					},
+					"response": [
+						{
+							"id": "9025ac63-ac19-4a39-aecb-ad9e98882066",
+							"name": "response",
+							"status": "return the types.Objects",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "1490f605-c1d9-44a3-87aa-86839013af36",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "objectGroup: remove object",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objectGroups/:groupId/objects?objectId=1",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objectGroups",
+								":groupId",
+								"objects"
+							],
+							"query": [
+								{
+									"key": "objectId",
+									"value": "1"
+								}
+							],
+							"variable": [
+								{
+									"value": "{{new_ogroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Remove the object group whose id is stored in the `new_ogroup_id` global variable, unsetting the variable if it succeeds."
+					},
+					"response": [
+						{
+							"id": "7fe92c9b-34c2-439e-8806-e181f319441d",
+							"name": "response",
+							"status": "return the types.Objects",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "254b8e73-a176-4c0b-904c-6eef3e65aabe",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "objectGroup: list permissions",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objectGroups/:groupId/permissions",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objectGroups",
+								":groupId",
+								"permissions"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_ogroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "List the permissions associated to an object group, using the `new_ogroup_id` global variable."
+					},
+					"response": [
+						{
+							"id": "abdd8629-b08b-4362-83d0-773281e3fe53",
+							"name": "response",
+							"status": "return the types.UserGroups",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "objectGroup: add permissions",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objectGroups/:groupId/permissions?groupId=1",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objectGroups",
+								":groupId",
+								"permissions"
+							],
+							"query": [
+								{
+									"key": "groupId",
+									"value": "1"
+								}
+							],
+							"variable": [
+								{
+									"value": "{{new_ogroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Give a usergroup the permissions to access in read-mode to an object group, using the `new_ogroup_id` global variable."
+					},
+					"response": [
+						{
+							"id": "d429c790-d252-46f9-8305-7bd3204f80b3",
+							"name": "response",
+							"status": "The request succeeded.",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "ab150723-6e38-42d8-b690-b06604793acf",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "objectGroup: remove permissions",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objectGroups/:groupId/permissions?groupId=1",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objectGroups",
+								":groupId",
+								"permissions"
+							],
+							"query": [
+								{
+									"key": "groupId",
+									"value": "1"
+								}
+							],
+							"variable": [
+								{
+									"value": "{{new_ogroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Remove a usergroup the permissions to access in read-mode to an object group, using the `new_ogroup_id` global variable."
+					},
+					"response": [
+						{
+							"id": "3d0f2712-6e38-4926-9789-a37b4d67abdb",
+							"name": "response",
+							"status": "The request succeeded.",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "b2197941-2a97-401b-80e0-36eb5f6bc9f6",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "objectGroup: delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.clearGlobalVariable(\"new_ogroup_id\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objectGroups/:groupId",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objectGroups",
+								":groupId"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_ogroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Delete an object group, using the `new_ogroup_id` global variable (the variable is unset upon success)."
+					},
+					"response": [
+						{
+							"id": "c6d8b80a-ff15-4b98-8570-bda1867f2e6d",
+							"name": "response",
+							"status": "The request succeeded.",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "88ecdd0e-e508-4c73-9575-58c2005468a6",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "objects",
+			"description": "All about objects.",
+			"item": [
+				{
+					"name": "objects: list (paginated)",
+					"request": {
+						"url": "{{server}}/api/objects?writable=false&page=0&perPage=10",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "List all objects you have access to. The result is paginated: first page, 10 results per page."
+					},
+					"response": [
+						{
+							"id": "2cc6b4e2-e05f-430d-9b68-60f3f2ad0bc7",
+							"name": "response",
+							"status": "return the types.Objects",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "objects: search",
+					"request": {
+						"url": "{{server}}/api/objects?writable=false&search=led&page=0&perPage=1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "List all objects you have access to and whose name contains the search string 'led'. The result is paginated."
+					},
+					"response": [
+						{
+							"id": "61bee85a-97fb-4add-8053-ad416bfaade6",
+							"name": "response",
+							"status": "return the types.Objects",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "object: create new",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200){",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    postman.setGlobalVariable(\"new_object_id\", jsonData.id);",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{server}}/api/objects",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n\t\"name\": \"temperature {{$randomInt}}\",  \n\t\"description\": \"my optional description\",  \n\t\"unitSymbol\": \"v\",\n\t\"owner\": 1\n}"
+						},
+						"description": "Create a new object, storing its id into the `new_object_id` global variable."
+					},
+					"response": [
+						{
+							"id": "75b7789f-8d08-47e9-acaa-0b068a68d998",
+							"name": "response",
+							"status": "return the types.object",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "ba90e950-b9b7-4436-a2a7-ed2a414b850c",
+							"name": "response",
+							"status": "The request has invalid or missing parameter(s).",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "object: edit description",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objects/:id",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objects",
+								":id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_object_id}}",
+									"id": "id"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"description\": \"my new description {{$randomInt}}\"\n}"
+						},
+						"description": "Edit an object description, using the `new_object_id` global variable."
+					},
+					"response": [
+						{
+							"id": "872b37d7-ee7f-4e01-94cb-7334f34fa2ae",
+							"name": "response",
+							"status": "return the types.object",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "16ff102e-d8b3-4f79-85a2-22e6ee10e821",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "object: get details",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objects/:objectId",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objects",
+								":objectId"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_object_id}}",
+									"id": "objectId"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get an object metadata, using the `new_object_id` global variable."
+					},
+					"response": [
+						{
+							"id": "5201ba08-54d8-4b5f-9670-29b74713df19",
+							"name": "response",
+							"status": "return the types.token",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "88b58c49-f9c2-4d8e-ab2e-d8d34a38653d",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "object: add token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200){",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    postman.setGlobalVariable(\"new_token_id\", jsonData.id);",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objects/:objectId/tokens",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objects",
+								":objectId",
+								"tokens"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_object_id}}",
+									"id": "objectId"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Create a token for an object, using the `new_object_id` global variable. The new token id is stored in the `new_token_id` global variable."
+					},
+					"response": [
+						{
+							"id": "0dc18a1a-ce30-40c2-bacf-153771aef60f",
+							"name": "response",
+							"status": "return the types.token",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "8e1ab2b5-01dc-4b10-81a2-7611ea215949",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "object: get tokens",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objects/:objectId/tokens",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objects",
+								":objectId",
+								"tokens"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_object_id}}",
+									"id": "objectId"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "List an object tokens, using the `new_object_id` global variable."
+					},
+					"response": [
+						{
+							"id": "da3a927b-3301-4457-8e60-097e6cb6435b",
+							"name": "response",
+							"status": "return the types.token",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "b72de23b-21f7-489d-8656-fee2be01c238",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "object: remove token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200) postman.clearGlobalVariable(\"new_token_id\");",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objects/:objectId/tokens?tokenId={{new_token_id}}",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objects",
+								":objectId",
+								"tokens"
+							],
+							"query": [
+								{
+									"key": "tokenId",
+									"value": "{{new_token_id}}"
+								}
+							],
+							"variable": [
+								{
+									"value": "{{new_object_id}}",
+									"id": "objectId"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Remove an object token, using the `new_object_id` and `new_token_id` global variables. The latter is unset upon success."
+					},
+					"response": [
+						{
+							"id": "d778f4e9-90e9-4c7b-a931-60014e4d66fc",
+							"name": "response",
+							"status": "return the types.token",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "d7e9268d-a6fc-4ce2-ac64-87b6ad28dafc",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "object: add tags",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objects/:objectId/tags?tags=hello,world",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objects",
+								":objectId",
+								"tags"
+							],
+							"query": [
+								{
+									"key": "tags",
+									"value": "hello,world"
+								}
+							],
+							"variable": [
+								{
+									"value": "{{new_object_id}}",
+									"id": "objectId"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Add tags to an object, using the `new_object_id` global variable."
+					},
+					"response": [
+						{
+							"id": "8ff0a975-deeb-443b-8399-9127febd5dda",
+							"name": "response",
+							"status": "return the types.token",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "36d4577c-ab3b-4d0c-b596-ba68a32f9d98",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "object: remove tags",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objects/:objectId/tags?tags=hello,world",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objects",
+								":objectId",
+								"tags"
+							],
+							"query": [
+								{
+									"key": "tags",
+									"value": "hello,world"
+								}
+							],
+							"variable": [
+								{
+									"value": "{{new_object_id}}",
+									"id": "objectId"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Remove object tags, using the `new_object_id` global variable."
+					},
+					"response": [
+						{
+							"id": "b8469b5e-3b71-4e01-b7e4-d4c384c7572f",
+							"name": "response",
+							"status": "return the types.token",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "c180d70e-4d75-4e48-b97a-86f2a7db0b71",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "object: get comments",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objects/:objectId/comments",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objects",
+								":objectId",
+								"comments"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_object_id}}",
+									"id": "objectId"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get all comments associated with an object, using the `new_object_id` global variable."
+					},
+					"response": [
+						{
+							"id": "f9bded97-6168-491c-aeb3-33dc92221933",
+							"name": "response",
+							"status": "return the types.token",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "6a3392a0-dfb0-467a-92c1-c9bc2d87669f",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "object: disable",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objects/:objectId/disable",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objects",
+								":objectId",
+								"disable"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_object_id}}",
+									"id": "objectId"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Disable an object, using the `new_object_id` global variable. This request will delete all token associated to it. "
+					},
+					"response": [
+						{
+							"id": "0130c73b-f4cc-4e9f-9f3c-c34c47039a8a",
+							"name": "response",
+							"status": "return the types.token",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "6a5894cc-ff9d-4b1c-a8c3-7b330bd71f26",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "object: enable",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objects/:objectId/enable",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objects",
+								":objectId",
+								"enable"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_object_id}}",
+									"id": "objectId"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Enable an object, using the `new_object_id` global variable."
+					},
+					"response": [
+						{
+							"id": "7025bcde-936a-4d12-982f-53fac56a0bde",
+							"name": "response",
+							"status": "return the types.token",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "ee08edb0-60a2-4711-9bfb-dc3f9d08f566",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "object: remove",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200) postman.clearGlobalVariable(\"new_obj\");",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/objects/:objectId",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"objects",
+								":objectId"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_object_id}}",
+									"id": "objectId"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Remove an object, using the `new_object_id` global variable. The latter will be unset upon success."
+					},
+					"response": [
+						{
+							"id": "3593a04d-b303-44b4-9e2b-4b80b37714cd",
+							"name": "response",
+							"status": "return the types.token",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "3bc7b31e-1f04-4778-9d9d-eae1fcd5f9dd",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "types",
+			"description": "All about types",
+			"item": [
+				{
+					"name": "types: list",
+					"request": {
+						"url": "{{server}}/api/types",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get all available types."
+					},
+					"response": [
+						{
+							"id": "02d4e819-3afb-4e8f-8417-a2c16067c97e",
+							"name": "response",
+							"status": "return the strings",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "units",
+			"description": "",
+			"item": [
+				{
+					"name": "units: list",
+					"request": {
+						"url": "{{server}}/api/units",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get all available units."
+					},
+					"response": [
+						{
+							"id": "eee8701e-2dfa-4d79-a245-c18e1e8e6212",
+							"name": "response",
+							"status": "return the types.Units",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "userGroups",
+			"description": "",
+			"item": [
+				{
+					"name": "userGroups: get all",
+					"request": {
+						"url": "{{server}}/api/userGroups?admin=false",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get all user groups you belong to."
+					},
+					"response": [
+						{
+							"id": "ab3ad4b6-7ca1-4797-a1a8-2da889c5c7b8",
+							"name": "response",
+							"status": "return the types.UserGroups",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "userGroups: get admin groups",
+					"request": {
+						"url": "{{server}}/api/userGroups?admin=true",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get all usergroups in which you have admin rights."
+					},
+					"response": [
+						{
+							"id": "d6ba6238-7b0d-4b4f-b047-c6a917be2c8d",
+							"name": "response",
+							"status": "return the types.UserGroups",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "userGroup: create new",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200){",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    postman.setGlobalVariable(\"new_ugroup_id\", jsonData.id);",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{server}}/api/userGroups",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"usergroup {{$randomInt}}\"}"
+						},
+						"description": "Create a new usergroup. The id of the created group will be stored in the `new_ugroup_id` global variable."
+					},
+					"response": [
+						{
+							"id": "9aa55894-d9ef-4f13-8d82-2244c1be5b07",
+							"name": "response",
+							"status": "return the types.usergroup",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "8a1825b1-1bc1-44de-98f5-9e7571fb83f7",
+							"name": "response",
+							"status": "The request has invalid or missing parameter(s).",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "userGroup: add existing user",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/userGroups/:groupId/users?userId=2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"userGroups",
+								":groupId",
+								"users"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "2"
+								}
+							],
+							"variable": [
+								{
+									"value": "{{new_ugroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Add an existing user to a usergroup, using the `new_ugroup_id` global variable. The user will have regular rights (`isAdmin=false`)."
+					},
+					"response": [
+						{
+							"id": "02160a17-e492-453b-a9a5-11935df6581e",
+							"name": "response",
+							"status": "return the types.usergroup",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "5d9fe848-6d9e-4f86-b5f4-4b8ee949a0fe",
+							"name": "response",
+							"status": "The request has invalid or missing parameter(s).",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "userGroup: add new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200){",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    postman.setGlobalVariable(\"new_user_id\", jsonData.id);",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/userGroups/:groupId/users/new?isAdmin=false",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"userGroups",
+								":groupId",
+								"users",
+								"new"
+							],
+							"query": [
+								{
+									"key": "isAdmin",
+									"value": "false"
+								}
+							],
+							"variable": [
+								{
+									"value": "{{new_ugroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"test-user-{{$randomInt}}\",\n\t\"email\":\"user-{{$randomInt}}@example.com\",\n\t\"password\":\"password\"\n}"
+						},
+						"description": "Create a new user and add it to the group denoted by `new_ugroup_id`. Please, since users cannot be deleted, use it with parcimony and prefix dummy users with `test-`... The new user id will be stored into the `new_user_id` global variable."
+					},
+					"response": [
+						{
+							"id": "618dd179-f990-4245-ad2a-1c09866ec5d3",
+							"name": "response",
+							"status": "return the types.user",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "da2691ac-93de-40bf-880c-87820e517fab",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "userGroup: promote user to admin",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/userGroups/:groupId/users?userId={{new_user_id}}&isAdmin=true",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"userGroups",
+								":groupId",
+								"users"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{new_user_id}}"
+								},
+								{
+									"key": "isAdmin",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"value": "{{new_ugroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Change user permissions, making him an admin of the group. This will use the `new_ugroup_id` and `new_user_id` global variable."
+					},
+					"response": [
+						{
+							"id": "f158dbfd-1b95-4750-96d8-b8b12c4c4ded",
+							"name": "response",
+							"status": "return the types.usergroup",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "ddbac449-71e2-494f-bf9a-adec4401ec25",
+							"name": "response",
+							"status": "The request has invalid or missing parameter(s).",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "userGroup: list users",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/userGroups/:groupId/users",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"userGroups",
+								":groupId",
+								"users"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_ugroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "List all users in a usergroup, using the `new_ugroup_id` global variable."
+					},
+					"response": [
+						{
+							"id": "86004040-1429-4374-8b4d-994a9b9b9b98",
+							"name": "response",
+							"status": "return the types.UserGroups",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "userGroup: remove user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200) postman.clearGlobalVariable(\"new_user_id\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/userGroups/:groupId/users?userId={{new_user_id}}",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"userGroups",
+								":groupId",
+								"users"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{new_user_id}}"
+								}
+							],
+							"variable": [
+								{
+									"value": "{{new_ugroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Remove a user from a group, using the `new_ugroup_id` global variable. The userid used is the one in the `new_user_id` global variable. The latter will be unset upon success."
+					},
+					"response": [
+						{
+							"id": "1c4204ac-f6ad-420e-84bf-c01c38700671",
+							"name": "response",
+							"status": "return the types.usergroup",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "5937a9c4-ccda-4404-9d20-af113af3d74e",
+							"name": "response",
+							"status": "The request has invalid or missing parameter(s).",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "userGroup: remove",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"if(responseCode.code === 200) postman.clearGlobalVariable(\"new_ugroup_id\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/userGroups/:groupId",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"userGroups",
+								":groupId"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{new_ugroup_id}}",
+									"id": "groupId"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=utf-8",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Remove a usergroup, using the `new_ugroup_id` global variable. The variable will be unset upon success."
+					},
+					"response": [
+						{
+							"id": "9b2c99b3-2766-414f-a275-a3447c49bd39",
+							"name": "response",
+							"status": "return the types.usergroup",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "4a7b4026-7d41-4d62-9c70-1cf3dfc471b2",
+							"name": "response",
+							"status": "The request has invalid or missing parameter(s).",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "users",
+			"description": "All about users.",
+			"item": [
+				{
+					"name": "users: list",
+					"request": {
+						"url": "http://bbdata.daplab.ch/api/users",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Get a list of all users."
+					},
+					"response": [
+						{
+							"id": "1c0f9863-49a3-4235-b3d3-f6ebff6c40a0",
+							"name": "response",
+							"status": "return the types.Users",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "values",
+			"description": "All about values.",
+			"item": [
+				{
+					"name": "values (json)",
+					"request": {
+						"url": "{{server}}/api/values?ids=1,4889&from=2016-12-31T16:00&to=2016-12-31T16:15:00&withComments=false",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "5bbcc18d-ed00-4a8a-92ad-6267234f05d5",
+							"name": "response",
+							"status": "return the types.Values",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "e27b6a80-4483-4e02-8d2b-3a850f27a62a",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "values (csv)",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/values?ids=3008&from=2017-06-02T19:00&to=2017-06-02T20:00&withComments=false&headers=true",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"values"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "3008",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "from",
+									"value": "2017-06-02T19:00",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "to",
+									"value": "2017-06-02T20:00",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "withComments",
+									"value": "false",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "headers",
+									"value": "true",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/plain",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "48bb1f29-3b33-4f4c-be2d-51e4c8a73aab",
+							"name": "response",
+							"status": "return the types.Values",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "d5125ea5-0387-4e3b-b4ad-eff14c9e051c",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "values: latest (json)",
+					"request": {
+						"url": "{{server}}/api/values/latest?ids=1,344&before=2017-04-01T10:00&withComments=false",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "0f857e75-ef03-411b-a6ad-48ced214c31e",
+							"name": "response",
+							"status": "return the types.Values",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "1d184b0a-d1af-48ba-869a-bdc57faeeb61",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "values: latest (csv)",
+					"request": {
+						"url": "{{server}}/api/values/latest?ids=1,4889&before=2017-04-01T10:00&withComments=false",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/plain",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							},
+							{
+								"key": "headers",
+								"value": "true",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "114eba9c-0716-4e56-bd27-64b3ed97a89e",
+							"name": "response",
+							"status": "return the types.Values",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "56a3fd26-82a8-4c9b-aa76-9d0b1e9f8e78",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "aggregations: quarters (json)",
+					"request": {
+						"url": "{{server}}/api/values/quarters?ids=1&from=2017-04-01T10:00&to=2017-04-01T11:00&withComments=false",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "2ab15e9b-f44d-4f4f-a390-52a3f1665fc5",
+							"name": "response",
+							"status": "return the types.Values",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "889b45a3-0002-466b-bff7-c573b321dc74",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "aggregations: quarters (csv)",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/values/quarters?ids=1&from=2017-06-22T00:00&to=2017-06-22T11:00&withComments=false&headers=true",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"values",
+								"quarters"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "from",
+									"value": "2017-06-22T00:00",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "to",
+									"value": "2017-06-22T11:00",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "withComments",
+									"value": "false",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "headers",
+									"value": "true",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/plain",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "b8ea1d11-0ac2-4a7b-8491-acc43f640c89",
+							"name": "response",
+							"status": "return the types.Values",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "a6d5555f-721a-4718-ac4b-62bae39df34f",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "aggregations: hours (json)",
+					"request": {
+						"url": "{{server}}/api/values/hours?ids=1&from=2017-05-13T04:00&to=2017-05-13T12:00&withComments=false",
+						"method": "GET",
+						"header": [
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "b0dadf98-020f-4356-bf14-8d23ab1a76e5",
+							"name": "response",
+							"status": "return the types.Values",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "7d95fba1-0cd5-49e9-ad60-47947bad1e98",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "aggregations: hours (csv)",
+					"request": {
+						"url": {
+							"raw": "{{server}}/api/values/hours?ids=1,4889&from=2017-06-22T00:00&to=2017-06-22T12:00&withComments=false&headers=true",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"values",
+								"hours"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "1,4889",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "from",
+									"value": "2017-06-22T00:00",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "to",
+									"value": "2017-06-22T12:00",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "withComments",
+									"value": "false",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "headers",
+									"value": "true",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/plain",
+								"description": ""
+							},
+							{
+								"key": "bbuser",
+								"value": "{{bbuser}}",
+								"description": ""
+							},
+							{
+								"key": "bbtoken",
+								"value": "{{bbtoken}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "412e599b-4397-4c31-8632-4a67d655e9f1",
+							"name": "response",
+							"status": "return the types.Values",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "02311c5d-22ce-4a76-9808-b7834c1dffc3",
+							"name": "response",
+							"status": "The resource was not found or you don't have access to it.",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				}
+			]
+		}
+	]
+}

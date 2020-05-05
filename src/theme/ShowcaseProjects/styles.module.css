@@ -1,0 +1,40 @@
+.Item {
+  padding: 25px;
+  justify-content: center;
+  max-width: 450px;
+  margin-bottom: 50px;
+}
+
+.Image {
+  justify-content: center;
+}
+
+.Desc {
+  justify-content: center;
+}
+
+.Title {
+  margin-top: 30px;
+  justify-content: center;
+}
+
+.Subtitle {
+  text-align: justify;
+}
+
+.Text {
+  justify-content: center;
+  text-align: justify;
+}
+
+.Link {
+  color: var(--ifm-color-primary);
+}
+
+.Link:hover {
+  color: var(--ifm-color-primary-dark);
+}
+
+.Link:visited {
+  color: var(--ifm-color-primary-darker);
+}

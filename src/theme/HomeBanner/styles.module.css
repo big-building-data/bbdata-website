@@ -1,0 +1,44 @@
+.HomeBanner {
+  padding: 4rem 0;
+  display: flex;
+  justify-content: center;
+  text-align: start;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 50px;
+}
+
+@media screen and (max-width: 966px) {
+  .HomeBanner {
+    padding: 2rem 2rem;
+  }
+}
+
+.HeroTitle {
+  font-weight: 800;
+  font-size: 3rem;
+}
+
+.HeroDescription {
+  font-size: 1.2rem;
+}
+
+.Row {
+  justify-content: center;
+}
+
+.Col {
+  justify-content: center;
+}
+
+.Text {
+  max-width: 300px;
+}
+
+.Image {
+  display:block;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width:300px;
+}

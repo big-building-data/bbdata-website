@@ -1,0 +1,83 @@
+.Cont {
+  display: flex;
+  justify-content: left;
+  margin: 0;
+  padding: 0;
+}
+
+.BannerButton {
+  min-width: 120px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: var(--ifm-color-white);
+  border-color: var(--ifm-color-white);
+  color: var(--ifm-color-primary);
+}
+
+.BannerButton:hover {
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-white);
+  color: var(--ifm-color-white);
+}
+
+.BannerButtonLight {
+  min-width: 120px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border-color: var(--ifm-color-white);
+  color: var(--ifm-color-white);
+}
+
+.BannerButtonLight:hover {
+  background-color: var(--ifm-color-white);
+  border-color: var(--ifm-color-white);
+  color: var(--ifm-color-primary);
+}
+
+.ContactButton {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+.ContactButton:hover {
+  background-color: var(--ifm-color-primary-darker);
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.ContactButtonLight {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+.ContactButtonLight:hover {
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+.ShowcaseButton {
+  margin-right: 10px;
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-white);
+}
+
+.ShowcaseButton:hover {
+  background-color: var(--ifm-color-white);
+  color: var(--ifm-color-primary);
+}
+
+.ShowcaseButtonLight {
+  margin-right: 10px;
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.ShowcaseButtonLight:hover {
+  background-color: var(--ifm-color-primary);
+  color: var(--ifm-color-white);
+}

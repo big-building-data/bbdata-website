@@ -1,0 +1,46 @@
+/** ==== alerts */
+
+/* copy .alert rules to avoid having to write both .alert and .alert-info */
+.alert-danger, .alert-info, .alert-warning, .alert-danger {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+
+/* add icons */
+
+.alert-info:before, .alert-success:before, .alert-warning:before, .alert-error:before {
+  font-family: FontAwesome, sans-serif;
+  font-style:normal;
+  font-weight:400;
+  speak:none;
+  display:inline-block;
+  text-decoration:inherit;
+  width:1em;
+  margin-right:.4em;
+  text-align:center;
+  font-variant:normal;
+  text-transform:none;
+  line-height:1em;
+  margin-left:.2em;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale
+}
+
+.alert-info:before {
+  content: "\f05a";
+}
+.alert-success:before {
+  content:'\f00c';
+}
+.alert-warning:before {
+  content:'\f071';
+}
+.alert-error:before {
+  content:'\f057';
+}
+
+/* windmill test */
+
