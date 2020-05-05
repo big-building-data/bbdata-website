@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '@theme/Layout';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 import {about} from '../../../pages/about';
 import styles from './styles.module.css';
@@ -18,7 +19,7 @@ function About() {
 
                 <Row className={styles.RowBanner}>
                     <Col className={styles.Banner}>
-                        <Banner title={bannerAbout.title} text={bannerAbout.text} image={bannerAbout.image}/>
+                        <Banner title={bannerAbout.title} text={bannerAbout.text}/>
                     </Col>
                 </Row>
 
@@ -36,13 +37,13 @@ function About() {
                         </Row>
                         <Row className={styles.Partners}>
                             <Col xs={{span:10, offset:1}} sm={{span:10, offset:2}} md={{span:4, offset:0}} lg={{span:4, offset:0}} xl={{span:4, offset:0}}>
-                                <Cards image={card1.image} title={card1.title} text={card1.text} link={card1.link}/>
+                                <Cards image={useBaseUrl(card1.image)} title={card1.title} text={card1.text} link={card1.link}/>
                             </Col>
                             <Col xs={{span:10, offset:1}} sm={{span:10, offset:2}} md={{span:4, offset:0}} lg={{span:4, offset:0}} xl={{span:4, offset:0}}>
-                                <Cards image={card2.image} title={card2.title} text={card2.text} link={card2.link}/>
+                                <Cards image={useBaseUrl(card2.image)} title={card2.title} text={card2.text} link={card2.link}/>
                             </Col>
                             <Col xs={{span:10, offset:1}} sm={{span:10, offset:2}} md={{span:4, offset:0}} lg={{span:4, offset:0}} xl={{span:4, offset:0}}>
-                                <Cards image={card3.image} title={card3.title} text={card3.text} link={card3.link}/>
+                                <Cards image={useBaseUrl(card3.image)} title={card3.title} text={card3.text} link={card3.link}/>
                             </Col>
                         </Row>
                     </Container>

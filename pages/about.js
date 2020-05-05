@@ -2,7 +2,6 @@ export const about = {
     bannerAbout: {
         title: 'About Us',
         text: 'Institute of Complex Systems',
-        image: 'url(../../../static/img/machine.jpg)'
     },
 
     research: {
@@ -12,21 +11,21 @@ export const about = {
     },
 
     card1: {
-        image: '../../../static/img/bbdata_logo.png',
+        image: 'img/bbdata_logo.png',
         title: 'iCoSys',
         text: 'Institute of Complex Systems',
         link: 'https://icosys.ch/'
     },
 
     card2: {
-        image: '../../../static/img/bbdata_logo.png',
-        title: 'Energy',
+        image: 'img/bbdata_logo.png',
+        title: 'ENERGY',
         text: 'Institute of Applied Research in Energy Systems',
         link: 'https://www.heia-fr.ch/en/applied-research/institutes/energy/'
     },
 
     card3: {
-        image: '../../../static/img/bbdata_logo.png',
+        image: 'img/bbdata_logo.png',
         title: 'Smart Living Lab',
         text: 'Institute for home innovation and well-being',
         link: 'https://www.smartlivinglab.ch/en/'

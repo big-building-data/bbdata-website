@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '@theme/Layout';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 import {showcase} from '../../../pages/showcase';
 import styles from './styles.module.css';
@@ -18,7 +19,7 @@ function Showcases() {
 
                 <Row className={styles.RowBanner}>
                     <Col className={styles.Banner}>
-                        <Banner title={bannerShowcase.title} text={bannerShowcase.text} image={bannerShowcase.image}/>
+                        <Banner title={bannerShowcase.title} text={bannerShowcase.text}/>
                     </Col>
                 </Row>
 
@@ -27,25 +28,25 @@ function Showcases() {
 
                         <Row className={styles.Row}>
                             <Col className={styles.Projects} xl={6} lg={6} md={6} sm={12} xs={12}>
-                                <Project image={firstShowcase.image} title={firstShowcase.title} subtitle={firstShowcase.subtitle}
+                                <Project image={useBaseUrl(firstShowcase.image)} title={firstShowcase.title} subtitle={firstShowcase.subtitle}
                                          text={firstShowcase.text}
                                          link={firstShowcase.link}/>
                             </Col>
 
                             <Col className={styles.Projects} xl={6} lg={6} md={6} sm={12} xs={12}>
-                                <Project image={secondShowcase.image} title={secondShowcase.title} subtitle={secondShowcase.subtitle}
+                                <Project image={useBaseUrl(secondShowcase.image)} title={secondShowcase.title} subtitle={secondShowcase.subtitle}
                                          text={secondShowcase.text} link={secondShowcase.link}/>
                             </Col>
                         </Row>
                         <Row className={styles.Row}>
                             <Col className={styles.Projects} xl={6} lg={6} md={6} sm={12} xs={12}>
-                                <Project image={thirdShowcase.image} title={thirdShowcase.title} subtitle={thirdShowcase.subtitle}
+                                <Project image={useBaseUrl(thirdShowcase.image)} title={thirdShowcase.title} subtitle={thirdShowcase.subtitle}
                                          text={thirdShowcase.text}
                                          link={thirdShowcase.link}/>
                             </Col>
 
                             <Col className={styles.Projects} xl={6} lg={6} md={6} sm={12} xs={12}>
-                                <Project image={fourthShowcase.image} title={fourthShowcase.title} subtitle={fourthShowcase.subtitle}
+                                <Project image={useBaseUrl(fourthShowcase.image)} title={fourthShowcase.title} subtitle={fourthShowcase.subtitle}
                                          text={fourthShowcase.text} link={fourthShowcase.link}/>
                             </Col>
                         </Row>
