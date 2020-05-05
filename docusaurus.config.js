@@ -1,7 +1,7 @@
 module.exports = {
   title: 'BBData',
   tagline: '',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://bbdata-website.netlify.app',
   baseUrl: '/',
   favicon: 'img/icosys_cropped.png',
   organizationName: 'HEIA-FR', // Usually your GitHub org/user name.
