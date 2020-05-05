@@ -19,7 +19,7 @@ export const about = {
 
     card2: {
         image: 'img/bbdata_logo.png',
-        title: 'ENERGY',
+        title: 'Energy',
         text: 'Institute of Applied Research in Energy Systems',
         link: 'https://www.heia-fr.ch/en/applied-research/institutes/energy/'
     },
