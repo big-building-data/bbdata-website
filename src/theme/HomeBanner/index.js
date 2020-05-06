@@ -18,7 +18,7 @@ const HomeBanner = (props) => (
 
                 <Row>
                     <Col xl={6} lg={6} md={6} sm={6} xs={6}>
-                        <Buttons isOnBanner={1}/>
+                        <Buttons type={"HomeBanner"}/>
                     </Col>
                 </Row>
             </Col>

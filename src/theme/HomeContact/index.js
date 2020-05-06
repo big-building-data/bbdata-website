@@ -8,11 +8,11 @@ import Buttons from "../Button/index";
 const Contact = (props) => (
     <div className={styles.Contact}>
         <Row>
-            <Col>
+            <Col className={styles.Col}>
                 <h2>{props.title}</h2>
                 <p>{props.text}</p>
                 <Row>
-                    <Buttons isOnBanner={2}/>
+                    <Buttons type={"HomeContact"}/>
                 </Row>
             </Col>
 

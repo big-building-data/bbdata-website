@@ -11,9 +11,9 @@ const BannerBtn = (props) => (
 );
 
 const ContactBtn = (props) => (
-    <div>
+    <div className={styles.Contact}>
         <Button variant="primary" href={'https://icosys.ch/'} target={"blank"} className={styles.ContactButton}>Go To iCoSys</Button>
-        <Button variant="outline-primary" className={styles.ContactButtonLight}>Contact Us</Button>
+        <Button variant="outline-primary" className={styles.ContactButtonLight} href="">Contact Us</Button>
     </div>
 );
 
@@ -24,13 +24,19 @@ const ShowcaseBtn = (props) => (
     </div>
 );
 
+const SubmitBtn = (props) => (
+        <Button variant="primary" type="submit" className={styles.SubmitButton}>Submit</Button>
+);
+
 export default function Buttons(props) {
-    const isOnBanner = props.isOnBanner;
-    if (isOnBanner === 1) {
-        return <BannerBtn Banner={isOnBanner}/>;
-    } else if (isOnBanner === 2) {
-        return <ContactBtn Banner={isOnBanner}/>;
-    } else if (isOnBanner === 3) {
-        return <ShowcaseBtn Banner={isOnBanner}/>;
+    const type = props.type;
+    if (type === "HomeBanner") {
+        return <BannerBtn btnType={type}/>;
+    } else if (type === "HomeContact") {
+        return <ContactBtn btnType={type}/>;
+    } else if (type === "ShowcaseContact") {
+        return <ShowcaseBtn btnType={type}/>;
+    } else if (type === "SubmitBtn") {
+        return <SubmitBtn btnType={type}/>
     }
 }
