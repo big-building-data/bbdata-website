@@ -17,7 +17,7 @@ const Contact = (props) => (
             </Col>
 
             <Col>
-                <Image src="../../../static/img/icosys-white.png" alt="iCoSys" className={styles.Logo}/>
+                <Image src={props.image_src} alt={props.image_alt} className={styles.Logo}/>
             </Col>
         </Row>
     </div>

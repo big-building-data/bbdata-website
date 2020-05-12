@@ -28,8 +28,9 @@ export const home = {
     },
 
     contact: {
-        title: 'Contact Us',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        email: ''
+        title: 'Get in Touch',
+        text: "Feel free to write us a word if you have any questions about BBData, we'll be happy to answer you!",
+        image_src: 'img/icosys-wh.png',
+        image_alt: "iCoSys Logo",
     },
 };

@@ -16,22 +16,18 @@ function About() {
     return (
         <Layout title="About">
             <Container fluid className={styles.ContA}>
-
                 <Row className={styles.RowBanner}>
                     <Col className={styles.Banner}>
                         <Banner title={bannerAbout.title} text={bannerAbout.text}/>
                     </Col>
                 </Row>
-
                 <Row className={styles.Content} xl={12}>
                     <Container>
-
                         <Row className={styles.Research} xl={6}>
                             <Col className={styles.Col}>
                                 <Research title={research.title} text1={research.text1} text2={research.text2}/>
                             </Col>
                         </Row>
-
                         <Row className={styles.Title} xl={12}>
                             <h1>Our Partners</h1>
                         </Row>

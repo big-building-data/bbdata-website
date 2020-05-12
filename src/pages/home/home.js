@@ -57,7 +57,11 @@ function Index() {
                     </Row>
                     <ScrollableAnchor id={'Contact'}>
                         <Row className={styles.Content}>
-                            <Contact title={contact.title} text={contact.text} email={contact.email}/>
+                            <Contact
+                                title={contact.title}
+                                text={contact.text}
+                                image_src={useBaseUrl(contact.image_src)}
+                                image_alt={contact.image_alt}/>
                         </Row>
                     </ScrollableAnchor>
                 </Container>

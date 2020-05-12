@@ -11,21 +11,21 @@ export const about = {
     },
 
     card1: {
-        image: 'img/bbdata_logo.png',
+        image: 'img/icosys.png',
         title: 'iCoSys',
         text: 'Institute of Complex Systems',
         link: 'https://icosys.ch/'
     },
 
     card2: {
-        image: 'img/bbdata_logo.png',
+        image: 'img/energy.jpg',
         title: 'Energy',
         text: 'Institute of Applied Research in Energy Systems',
         link: 'https://www.heia-fr.ch/en/applied-research/institutes/energy/'
     },
 
     card3: {
-        image: 'img/bbdata_logo.png',
+        image: 'img/sll.png',
         title: 'Smart Living Lab',
         text: 'Institute for home innovation and well-being',
         link: 'https://www.smartlivinglab.ch/en/'
