@@ -87,8 +87,13 @@
 }
 
 .SubmitButton {
-  width: 200px;
   background-color: var(--ifm-color-primary);
   border-color: var(--ifm-color-primary);
   color: var(--ifm-color-white);
+}
+
+.SubmitButton:hover {
+  background-color: var(--ifm-color-white);
+  color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
 }
