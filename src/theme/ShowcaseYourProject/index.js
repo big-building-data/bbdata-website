@@ -13,7 +13,7 @@ const yourProject = (props) => (
             <p>{props.text}</p>
         </Col>
         <Col>
-            <Buttons isOnBanner={3}/>
+            <Buttons type={"ShowcaseContact"}/>
         </Col>
         </Row>
     </div>

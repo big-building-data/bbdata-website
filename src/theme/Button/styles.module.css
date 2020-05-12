@@ -59,6 +59,10 @@
   border-color: var(--ifm-color-primary);
 }
 
+.Contact {
+  padding: 15px;
+}
+
 .ShowcaseButton {
   margin-right: 10px;
   background-color: var(--ifm-color-primary);
@@ -79,5 +83,12 @@
 
 .ShowcaseButtonLight:hover {
   background-color: var(--ifm-color-primary);
+  color: var(--ifm-color-white);
+}
+
+.SubmitButton {
+  width: 200px;
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
   color: var(--ifm-color-white);
 }
