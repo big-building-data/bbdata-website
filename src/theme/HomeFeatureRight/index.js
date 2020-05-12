@@ -8,7 +8,7 @@ const FeatureRight = (props) => (
         <Row className={styles.Row}>
             <Col xs={{span: 12, order: 12}} sm={{span: 6, order: 1}} md={{span: 6, order: 1}} lg={{span: 6, order: 1}} xl={{span: 6, order: 1}}>
                 <div className={styles.Text}>
-                    <h2>{props.title}</h2>
+                    <h2 className={"h2"}>{props.title}</h2>
                     <p>{props.text}</p>
                 </div>
             </Col>

@@ -5,7 +5,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import {showcase} from '../../../pages/showcase';
 import styles from './styles.module.css';
 
-import Banner from "../../theme/ShowcaseBanner";
+import Banner from "../../theme/Banner";
 import Project from "../../theme/ShowcaseProjects";
 import YourProject from "../../theme/ShowcaseYourProject";
 

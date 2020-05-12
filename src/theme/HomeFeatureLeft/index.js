@@ -12,7 +12,7 @@ const FeatureLeft = (props) => (
 
             <Col xs={12} sm={6} md={6} lg={6} xl={6}>
                 <div className={styles.Text}>
-                    <h2>{props.title}</h2>
+                    <h2 className={"h2"}>{props.title}</h2>
                     <p>{props.text}</p>
                 </div>
             </Col>

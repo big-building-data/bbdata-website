@@ -19,12 +19,12 @@
 }
 
 .Subtitle {
-  text-align: justify;
+  text-align: center;
 }
 
 .Text {
   justify-content: center;
-  text-align: justify;
+  text-align: left;
 }
 
 .Link {

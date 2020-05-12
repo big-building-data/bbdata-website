@@ -6,6 +6,14 @@ module.exports = {
   favicon: 'img/icosys_cropped.png',
   organizationName: 'HEIA-FR', // Usually your GitHub org/user name.
   projectName: 'BANTAM', // Usually your repo name.
+  stylesheets: [
+    {
+      href: 'https://fonts.googleapis.com/css2?' +
+          'family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900' +
+          '&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900' +
+          '&display=swap"'
+    },
+  ],
   themeConfig: {
     disableDarkMode: true,
     navbar: {
@@ -45,7 +53,10 @@ module.exports = {
             'https://github.com/facebook/docusaurus/edit/master/website/',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: [
+              require.resolve('./src/css/custom.css'),
+              require.resolve('./src/css/typography.css')
+          ]
         },
       },
     ],

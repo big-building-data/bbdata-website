@@ -11,7 +11,7 @@ const HomeBanner = (props) => (
             <Col xl={{span: 6, order: 1}} lg={{span: 6, order: 1}} md={{span: 6, order: 1}} sm={{span: 6, order: 1}} xs={{span: 12, order: 12}} className={styles.Text}>
                 <Row className={styles.Row}>
                     <Col>
-                        <h1 className={styles.HeroTitle}>{props.title}</h1>
+                        <h1 className={"h1 "+styles.HeroTitle}>{props.title}</h1>
                         <p className={styles.HeroDescription}>{props.text}</p>
                     </Col>
                 </Row>

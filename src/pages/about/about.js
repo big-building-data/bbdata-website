@@ -5,7 +5,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import {about} from '../../../pages/about';
 import styles from './styles.module.css';
 
-import Banner from '../../theme/ShowcaseBanner';
+import Banner from '../../theme/Banner';
 import Research from '../../theme/AboutResearch';
 import Cards from '../../theme/AboutCard';
 

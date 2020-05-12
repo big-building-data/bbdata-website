@@ -5,7 +5,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import {contact} from "../../../pages/contact";
 import styles from "./styles.module.css";
 
-import Banner from '../../theme/ShowcaseBanner';
+import Banner from '../../theme/Banner';
 import Form from '../../theme/ContactForm';
 
 import {Col, Container, Row} from "react-bootstrap";

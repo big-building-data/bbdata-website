@@ -9,7 +9,7 @@ const Contact = (props) => (
     <div className={styles.Contact}>
         <Row>
             <Col className={styles.Col}>
-                <h2>{props.title}</h2>
+                <h2 className={"h2"}>{props.title}</h2>
                 <p>{props.text}</p>
                 <Row>
                     <Buttons type={"HomeContact"}/>
