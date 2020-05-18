@@ -15,7 +15,7 @@ function ContactForm(props) {
     }
 
     return (
-        <div>
+        <div className={styles.FormSection}>
             <Form onSubmit={handleSubmit(onSubmit)} name="Contact" method="POST" data-netlify="true">
                 <Form.Row className={styles.FormRow}>
                     <Col lg={1}>

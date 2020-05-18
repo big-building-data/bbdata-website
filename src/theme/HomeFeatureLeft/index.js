@@ -6,11 +6,11 @@ import {Col, Image, Row} from "react-bootstrap";
 const FeatureLeft = (props) => (
     <div className={styles.Left}>
         <Row className={styles.Row}>
-            <Col xs={12} sm={6} md={6} lg={6} xl={6}>
+            <Col xs={12} sm={6} md={6} lg={6} xl={6} className={styles.Col}>
                 <Image src={props.image_src} alt={props.image_alt} className={styles.Image}/>
             </Col>
 
-            <Col xs={12} sm={6} md={6} lg={6} xl={6}>
+            <Col xs={12} sm={6} md={6} lg={6} xl={6} className={styles.Col}>
                 <div className={styles.Text}>
                     <h2 className={"h2"}>{props.title}</h2>
                     <p>{props.text}</p>

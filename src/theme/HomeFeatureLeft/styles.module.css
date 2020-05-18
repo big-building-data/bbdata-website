@@ -28,6 +28,11 @@
   margin-bottom: 50px;
 }
 
+.Col {
+  display: flex;
+  justify-content: center;
+}
+
 .Image {
   max-width: 300px;
 }
