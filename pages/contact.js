@@ -9,5 +9,6 @@ export const contact = {
         Email: 'Email',
         Email_text: 'We need your E-Mail so that we can contact you. We\'ll never share your email with anyone else.',
         Message: 'Message',
+        btnTextPrimaryVioletSubmit: "Submit",
     },
 };

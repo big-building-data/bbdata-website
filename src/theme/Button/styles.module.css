@@ -97,3 +97,96 @@
   color: var(--ifm-color-primary);
   border-color: var(--ifm-color-primary);
 }
+
+
+
+
+
+.PrimaryWhite {
+  min-width: 120px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: var(--ifm-color-white);
+  border-color: var(--ifm-color-white);
+  color: var(--ifm-color-primary);
+}
+
+.PrimaryWhite:hover {
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-white);
+  color: var(--ifm-color-white);
+}
+
+.SecondaryViolet {
+  min-width: 120px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border-color: var(--ifm-color-white);
+  color: var(--ifm-color-white);
+}
+
+.SecondaryViolet:hover {
+  background-color: var(--ifm-color-white);
+  border-color: var(--ifm-color-white);
+  color: var(--ifm-color-primary);
+}
+
+.PrimaryDark {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+.PrimaryDark:hover {
+  background-color: var(--ifm-color-primary-darker);
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.SecondaryDark {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+.SecondaryDark:hover {
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+.PrimaryViolet {
+  margin-right: 10px;
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-white);
+}
+
+.PrimaryViolet:hover {
+  background-color: var(--ifm-color-white);
+  color: var(--ifm-color-primary);
+}
+
+.SecondaryWhite {
+  margin-right: 10px;
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.SecondaryWhite:hover {
+  background-color: var(--ifm-color-primary);
+  color: var(--ifm-color-white);
+}
+
+.PrimaryVioletSubmit {
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-white);
+}
+
+.PrimaryVioletSubmit:hover {
+  background-color: var(--ifm-color-white);
+  color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}

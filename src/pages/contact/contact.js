@@ -17,13 +17,20 @@ function ContactForm() {
             <Container fluid className={styles.ContC}>
                 <Row className={styles.RowBanner}>
                     <Col className={styles.Banner}>
-                        <Banner title={bannerContact.title} text={bannerContact.subtitle} />
+                        <Banner title={bannerContact.title}
+                                text={bannerContact.subtitle}
+                        />
                     </Col>
                 </Row>
 
                 <Row className={styles.Content} xl={12}>
                     <Container>
-                        <Form name={formSection.Name} email={formSection.Email} text={formSection.Email_text} message={formSection.Message}/>
+                        <Form name={formSection.Name}
+                              email={formSection.Email}
+                              text={formSection.Email_text}
+                              message={formSection.Message}
+                              btnTextPrimaryVioletSubmit={formSection.btnTextPrimaryVioletSubmit}
+                        />
                     </Container>
                 </Row>
             </Container>

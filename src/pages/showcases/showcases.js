@@ -19,7 +19,9 @@ function Showcases() {
 
                 <Row className={styles.RowBanner}>
                     <Col className={styles.Banner}>
-                        <Banner title={bannerShowcase.title} text={bannerShowcase.text}/>
+                        <Banner title={bannerShowcase.title}
+                                text={bannerShowcase.text}
+                        />
                     </Col>
                 </Row>
 
@@ -28,31 +30,51 @@ function Showcases() {
 
                         <Row className={styles.Row}>
                             <Col className={styles.Projects} xl={6} lg={6} md={6} sm={12} xs={12}>
-                                <Project image={useBaseUrl(firstShowcase.image)} title={firstShowcase.title} subtitle={firstShowcase.subtitle}
+                                <Project image={useBaseUrl(firstShowcase.image)}
+                                         title={firstShowcase.title}
+                                         subtitle={firstShowcase.subtitle}
                                          text={firstShowcase.text}
-                                         link={firstShowcase.link}/>
+                                         link={firstShowcase.link}
+                                />
                             </Col>
 
                             <Col className={styles.Projects} xl={6} lg={6} md={6} sm={12} xs={12}>
-                                <Project image={useBaseUrl(secondShowcase.image)} title={secondShowcase.title} subtitle={secondShowcase.subtitle}
-                                         text={secondShowcase.text} link={secondShowcase.link}/>
+                                <Project image={useBaseUrl(secondShowcase.image)}
+                                         title={secondShowcase.title}
+                                         subtitle={secondShowcase.subtitle}
+                                         text={secondShowcase.text}
+                                         link={secondShowcase.link}
+                                />
                             </Col>
                         </Row>
                         <Row className={styles.Row}>
                             <Col className={styles.Projects} xl={6} lg={6} md={6} sm={12} xs={12}>
-                                <Project image={useBaseUrl(thirdShowcase.image)} title={thirdShowcase.title} subtitle={thirdShowcase.subtitle}
+                                <Project image={useBaseUrl(thirdShowcase.image)}
+                                         title={thirdShowcase.title}
+                                         subtitle={thirdShowcase.subtitle}
                                          text={thirdShowcase.text}
-                                         link={thirdShowcase.link}/>
+                                         link={thirdShowcase.link}
+                                />
                             </Col>
 
                             <Col className={styles.Projects} xl={6} lg={6} md={6} sm={12} xs={12}>
-                                <Project image={useBaseUrl(fourthShowcase.image)} title={fourthShowcase.title} subtitle={fourthShowcase.subtitle}
-                                         text={fourthShowcase.text} link={fourthShowcase.link}/>
+                                <Project image={useBaseUrl(fourthShowcase.image)}
+                                         title={fourthShowcase.title}
+                                         subtitle={fourthShowcase.subtitle}
+                                         text={fourthShowcase.text}
+                                         link={fourthShowcase.link}
+                                />
                             </Col>
                         </Row>
 
                         <Row className={styles.Contact}>
-                            <YourProject title={yourProject.title} text={yourProject.text} email={yourProject.email}/>
+                            <YourProject title={yourProject.title}
+                                         text={yourProject.text}
+                                         btnTextPrimaryViolet={yourProject.btnTextPrimaryViolet}
+                                         linkPrimaryViolet={yourProject.linkPrimaryViolet}
+                                         btnTextSecondaryWhite={yourProject.btnTextSecondaryWhite}
+                                         linkSecondaryWhite={yourProject.linkSecondaryWhite}
+                            />
                         </Row>
 
                     </Container>

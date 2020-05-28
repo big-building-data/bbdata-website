@@ -39,6 +39,9 @@ export const showcase = {
     yourProject: {
         title: 'Your Project on BBData',
         text: 'Contact us for your next project',
-        email: ''
+        btnTextPrimaryViolet: "Go To iCoSys",
+        linkPrimaryViolet: 'https://icosys.ch/',
+        btnTextSecondaryWhite: "Contact Us",
+        linkSecondaryWhite: "",
     },
 };

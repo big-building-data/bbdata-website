@@ -3,7 +3,11 @@ export const home = {
         title: 'BBData',
         text: 'The scalable platform for all your sensors and time series data, for the building sector and more',
         image_src: "home/buildings2_wh.png",
-        image_alt: "buildings"
+        image_alt: "buildings",
+        btnTextPrimary: "Get Started",
+        linkPrimary: "../../../docs/get_started",
+        btnTextSecondary: "Contact Us",
+        linkSecondary: '#Contact',
     },
 
     firstFeature: {
@@ -32,5 +36,9 @@ export const home = {
         text: "Feel free to write us a word if you have any questions about BBData, we'll be happy to answer you!",
         image_src: 'img/icosys-wh.png',
         image_alt: "iCoSys Logo",
+        btnTextPrimaryDark: "Go To iCoSys",
+        linkPrimaryDark: 'https://icosys.ch/',
+        btnTextSecondaryDark: "Contact Us",
+        linkSecondaryDark: "",
     },
 };

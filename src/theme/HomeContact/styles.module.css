@@ -2,7 +2,7 @@
   margin-top: 100px;
   margin-bottom: 100px;
   padding: 40px;
-  border: 1px solid darkgray;
+  border: 1px solid var(--ifm-color-primary-darker);
   border-radius: 20px;
   background-color: var(--ifm-color-primary-darker);
   color: var(--ifm-color-white);

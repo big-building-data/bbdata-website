@@ -30,7 +30,12 @@ function Index() {
                     title={hero.title}
                     text={hero.text}
                     image_src={useBaseUrl(hero.image_src)}
-                    image_alt={hero.image_alt}/>
+                    image_alt={hero.image_alt}
+                    btnTextPrimary={hero.btnTextPrimary}
+                    linkPrimary={hero.linkPrimary}
+                    btnTextSecondary={hero.btnTextSecondary}
+                    linkSecondary={hero.linkSecondary}
+                />
             </header>
             <main>
                 <Container>
@@ -39,21 +44,24 @@ function Index() {
                             title={firstFeature.title}
                             text={firstFeature.text}
                             image_src={useBaseUrl(firstFeature.image_src)}
-                            image_alt={firstFeature.image_alt}/>
+                            image_alt={firstFeature.image_alt}
+                        />
                     </Row>
                     <Row className={styles.Row}>
                         <FeatureRight
                             title={secondFeature.title}
                             text={secondFeature.text}
                             image_src={useBaseUrl(secondFeature.image_src)}
-                            image_alt={secondFeature.image_alt}/>
+                            image_alt={secondFeature.image_alt}
+                        />
                     </Row>
                     <Row className={styles.Row}>
                         <FeatureLeft
                             title={thirdFeature.title}
                             text={thirdFeature.text}
                             image_src={useBaseUrl(thirdFeature.image_src)}
-                            image_alt={thirdFeature.image_alt}/>
+                            image_alt={thirdFeature.image_alt}
+                        />
                     </Row>
                     <ScrollableAnchor id={'Contact'}>
                         <Row className={styles.Content}>
@@ -61,7 +69,12 @@ function Index() {
                                 title={contact.title}
                                 text={contact.text}
                                 image_src={useBaseUrl(contact.image_src)}
-                                image_alt={contact.image_alt}/>
+                                image_alt={contact.image_alt}
+                                btnTextPrimaryDark={contact.btnTextPrimaryDark}
+                                linkPrimaryDark={contact.linkPrimaryDark}
+                                btnTextSecondaryDark={contact.btnTextSecondaryDark}
+                                linkSecondaryDark={contact.linkSecondaryDark}
+                            />
                         </Row>
                     </ScrollableAnchor>
                 </Container>

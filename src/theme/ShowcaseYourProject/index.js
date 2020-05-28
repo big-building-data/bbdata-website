@@ -13,7 +13,14 @@ const yourProject = (props) => (
             <p>{props.text}</p>
         </Col>
         <Col>
-            <Buttons type={"ShowcaseContact"}/>
+            <Buttons type={"PrimaryViolet"}
+                     text={props.btnTextPrimaryViolet}
+                     link={props.linkPrimaryViolet}
+            />
+            <Buttons type={"SecondaryWhite"}
+                     text={props.btnTextSecondaryWhite}
+                     link={props.linkSecondaryWhite}
+            />
         </Col>
         </Row>
     </div>

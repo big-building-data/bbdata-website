@@ -3,40 +3,50 @@ import styles from "./styles.module.css";
 
 import {Button} from "react-bootstrap";
 
-const BannerBtn = (props) => (
-    <div className={styles.Cont}>
-        <Button variant="primary" href="../../../docs/get_started" className={styles.BannerButton}>Get Started</Button>
-        <Button variant="outline-primary" href={'#Contact'} className={styles.BannerButtonLight}>Contact Us</Button>
-    </div>
+const PrimaryWhite = (props) => (
+    <Button variant="primary" className={styles.PrimaryWhite} href={props.link}>{props.text}</Button>
 );
 
-const ContactBtn = (props) => (
-    <div className={styles.Contact}>
-        <Button variant="primary" href={'https://icosys.ch/'} target={"blank"} className={styles.ContactButton}>Go To iCoSys</Button>
-        <Button variant="outline-primary" className={styles.ContactButtonLight} href="">Contact Us</Button>
-    </div>
+const SecondaryViolet = (props) => (
+    <Button variant="outline-primary" className={styles.SecondaryViolet} href={props.link}>{props.text}</Button>
 );
 
-const ShowcaseBtn = (props) => (
-    <div>
-        <Button href={'https://icosys.ch/'} target={"blank"} variant="primary" className={styles.ShowcaseButton}>Go To iCoSys</Button>
-        <Button variant="outline-primary" className={styles.ShowcaseButtonLight}>Contact Us</Button>
-    </div>
+const PrimaryDark = (props) => (
+    <Button variant="primary" className={styles.PrimaryDark} href={props.link} target={"blank"}>{props.text}</Button>
 );
 
-const SubmitBtn = (props) => (
-        <Button variant="primary" type="submit" className={styles.SubmitButton}>Submit</Button>
+const SecondaryDark = (props) => (
+    <Button variant="outline-primary" className={styles.SecondaryDark} href={props.link}>{props.text}</Button>
+);
+
+const PrimaryViolet = (props) => (
+    <Button variant="primary" className={styles.PrimaryViolet} href={props.link} target={"blank"}>{props.text}</Button>
+);
+
+const SecondaryWhite = (props) => (
+    <Button variant="outline-primary" className={styles.SecondaryWhite} href={props.link}>{props.text}</Button>
+);
+
+const PrimaryVioletSubmit = (props) => (
+    <Button variant="primary" type="submit" className={styles.PrimaryVioletSubmit}>{props.text}</Button>
 );
 
 export default function Buttons(props) {
     const type = props.type;
-    if (type === "HomeBanner") {
-        return <BannerBtn btnType={type}/>;
-    } else if (type === "HomeContact") {
-        return <ContactBtn btnType={type}/>;
-    } else if (type === "ShowcaseContact") {
-        return <ShowcaseBtn btnType={type}/>;
-    } else if (type === "SubmitBtn") {
-        return <SubmitBtn btnType={type}/>
+
+    if (type === "PrimaryWhite") {
+        return <PrimaryWhite btnType={type} text={props.text} link={props.link}/>
+    } else if (type === "SecondaryViolet") {
+        return <SecondaryViolet btnType={type} text={props.text} link={props.link}/>
+    } else if (type === "PrimaryDark") {
+        return <PrimaryDark btnType={type} text={props.text} link={props.link}/>
+    } else if (type === "SecondaryDark") {
+        return <SecondaryDark btnType={type} text={props.text} link={props.link}/>
+    } else if (type === "PrimaryViolet") {
+        return <PrimaryViolet btnType={type} text={props.text} link={props.link}/>
+    } else if (type === "SecondaryWhite") {
+        return <SecondaryWhite btnType={type} text={props.text} link={props.link}/>
+    } else if (type === "PrimaryVioletSubmit") {
+        return <PrimaryVioletSubmit btnType={type} text={props.text}/>
     }
 }

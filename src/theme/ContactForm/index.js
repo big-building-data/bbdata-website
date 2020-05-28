@@ -68,7 +68,9 @@ function ContactForm(props) {
                 </Form.Row>
 
                 <Form.Row className={styles.Button}>
-                    <Buttons type="SubmitBtn"/>
+                    <Buttons type={"PrimaryVioletSubmit"}
+                             text={props.btnTextPrimaryVioletSubmit}
+                    />
                 </Form.Row>
 
             </Form>
