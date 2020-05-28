@@ -27,6 +27,11 @@
   justify-content: center;
 }
 
+.ButtonCol {
+  display: flex;
+  margin: 0;
+}
+
 .Col {
   justify-content: center;
 }

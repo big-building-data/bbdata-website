@@ -8,6 +8,10 @@
   color: var(--ifm-color-white);
 }
 
+.BtnRow {
+  padding: 15px;
+}
+
 .Logo {
   align-self: center;
   margin-top: 30px;

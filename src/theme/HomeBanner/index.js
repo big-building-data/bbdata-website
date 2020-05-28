@@ -17,9 +17,15 @@ const HomeBanner = (props) => (
                 </Row>
 
                 <Row>
-                    <Col xl={6} lg={6} md={6} sm={6} xs={6}>
-                        <Buttons type={"PrimaryWhite"} text={props.btnTextPrimary} link={props.linkPrimary}/>
-                        <Buttons type={"SecondaryViolet"} text={props.btnTextSecondary} link={props.linkSecondary} />
+                    <Col xl={6} lg={6} md={6} sm={6} xs={6} className={styles.ButtonCol}>
+                        <Buttons type={"PrimaryWhite"}
+                                 text={props.btnTextPrimary}
+                                 link={props.linkPrimary}
+                        />
+                        <Buttons type={"SecondaryViolet"}
+                                 text={props.btnTextSecondary}
+                                 link={props.linkSecondary}
+                        />
                     </Col>
                 </Row>
             </Col>

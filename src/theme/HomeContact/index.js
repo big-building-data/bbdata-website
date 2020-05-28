@@ -11,7 +11,7 @@ const Contact = (props) => (
             <Col lg={{span: 8}}>
                 <h2 className={"h2"}>{props.title}</h2>
                 <p>{props.text}</p>
-                <Row>
+                <Row className={styles.BtnRow}>
                     <Buttons type={"PrimaryDark"} text={props.btnTextPrimaryDark} link={props.linkPrimaryDark}/>
                     <Buttons type={"SecondaryDark"} text={props.btnTextSecondaryDark} link={props.linkSecondaryDark}/>
                 </Row>
