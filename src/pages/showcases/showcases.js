@@ -34,7 +34,8 @@ function Showcases() {
                                          title={firstShowcase.title}
                                          subtitle={firstShowcase.subtitle}
                                          text={firstShowcase.text}
-                                         link={firstShowcase.link}
+                                         btnTextShowcase={firstShowcase.btnTextShowcase}
+                                         btnLinkShowcase={firstShowcase.btnLinkShowcase}
                                 />
                             </Col>
 
@@ -43,7 +44,8 @@ function Showcases() {
                                          title={secondShowcase.title}
                                          subtitle={secondShowcase.subtitle}
                                          text={secondShowcase.text}
-                                         link={secondShowcase.link}
+                                         btnTextShowcase={secondShowcase.btnTextShowcase}
+                                         btnLinkShowcase={secondShowcase.btnLinkShowcase}
                                 />
                             </Col>
                         </Row>
@@ -53,7 +55,8 @@ function Showcases() {
                                          title={thirdShowcase.title}
                                          subtitle={thirdShowcase.subtitle}
                                          text={thirdShowcase.text}
-                                         link={thirdShowcase.link}
+                                         btnTextShowcase={thirdShowcase.btnTextShowcase}
+                                         btnLinkShowcase={thirdShowcase.btnLinkShowcase}
                                 />
                             </Col>
 
@@ -62,7 +65,8 @@ function Showcases() {
                                          title={fourthShowcase.title}
                                          subtitle={fourthShowcase.subtitle}
                                          text={fourthShowcase.text}
-                                         link={fourthShowcase.link}
+                                         btnTextShowcase={fourthShowcase.btnTextShowcase}
+                                         btnLinkShowcase={fourthShowcase.btnLinkShowcase}
                                 />
                             </Col>
                         </Row>

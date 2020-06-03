@@ -1,5 +1,8 @@
 import React from 'react';
 import styles from './styles.module.css';
+
+import Buttons from '../Button/index';
+
 import {Image, Row} from "react-bootstrap";
 
 const Project = (props) => (
@@ -11,7 +14,11 @@ const Project = (props) => (
             <h2 className={styles.Title}>{props.title}</h2>
             <h3 className={styles.Subtitle}>{props.subtitle}</h3>
             <p className={styles.Text}>{props.text}</p>
-            <a href={props.link} target='_blank' className={styles.Link}>Link to Project</a>
+            <Buttons type={"PrimaryViolet"}
+                     text={props.btnTextShowcase}
+                     link={props.btnLinkShowcase}
+            />
+
         </Row>
     </div>
 );
