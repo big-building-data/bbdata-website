@@ -14,17 +14,24 @@
 }
 
 .Title {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 800;
+  font-size: 2.7rem;
   margin-top: 30px;
   justify-content: center;
 }
 
 .Subtitle {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 600;
+  font-size: 1.7rem;
   text-align: center;
 }
 
 .Text {
   justify-content: center;
   text-align: left;
+  margin-bottom: 30px;
 }
 
 .Link {
