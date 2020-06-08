@@ -14,7 +14,7 @@ export const showcase = {
     },
 
     secondShowcase: {
-        image: 'img/citypulse.png',
+        image: 'img/citypulse_cropped.png',
         title: 'CityPulse',
         subtitle: 'Measuring, interpreting and representing the pulse of the city',
         text: 'Road traffic has a sizeable impact on the comfort and quality of life in our neighborhoods and cities, notably on air quality and noise pollution. The recent evolutions in sensors, communication networks and BigData analytics open new perspectives in the measurement and analysis of those impacts. The CityPulse project aims to offer a live, localized and continuous measurement of the city through the installation of a network of Internet of Things (IoT) sensors. This project is realized in collaboration with the Smart Living Lab (SLL), a long-term project which aims to develop the neighborhoods of the future.',
