@@ -40,6 +40,10 @@
   color: var(--ifm-color-primary);
 }
 
+.PrimaryDark:focus {
+  background-color: var(--ifm-color-primary-darker);
+}
+
 .SecondaryDark {
   margin-right: 10px;
   margin-bottom: 10px;
@@ -62,6 +66,10 @@
 .PrimaryViolet:hover {
   background-color: var(--ifm-color-white);
   color: var(--ifm-color-primary);
+}
+
+.PrimaryViolet:focus {
+  background-color: var(--ifm-color-primary);
 }
 
 .SecondaryWhite {
