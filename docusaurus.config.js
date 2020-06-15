@@ -58,16 +58,12 @@ module.exports = {
               require.resolve('./src/css/typography.css')
           ]
         },
-      },
-    ],
-  ],
-  plugins: [
-      [
-          '@docusaurus/plugin-content-pages',
-        {
+        pages: {
           path: 'src/pages',
           routeBasePath: '',
         },
-      ],
+      },
+    ],
   ],
+  plugins: [],
 };
