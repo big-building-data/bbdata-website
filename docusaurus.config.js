@@ -27,7 +27,7 @@ module.exports = {
         {to: 'docs/get_started', label: 'Developer', position: 'left'},
         {to: 'about', label: 'About', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/big-building-data/',
           label: 'GitHub',
           position: 'right',
         },
